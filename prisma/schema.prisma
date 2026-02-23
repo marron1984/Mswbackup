@@ -1,0 +1,100 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Lead {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // 紹介元
+  sourceType String  @default("web") // web, phone, line, hospital, caremanager, other
+  sourceName String? // 紹介元名（任意）
+
+  // ステータス
+  status   String @default("new") // new, contacted, qualified, tour_scheduled, toured, contracted, lost
+  severity String @default("low") // low, med, high（医療依存度簡易）
+
+  // 相談者区分
+  consultantType String? // self, family, hospital, caremanager, other
+
+  // 希望条件
+  desiredArea   String?
+  moveInTiming  String? // urgent, 2weeks, 1month, undecided
+  budgetMax     Int?
+
+  // 連絡先
+  contactName     String?
+  contactPhone    String?
+  contactEmail    String?
+  preferredContact String? // phone, email, line
+
+  // 介護情報
+  careLevel    String? // 要支援1-2, 要介護1-5, 申請中, 未申請
+  medicalFlags String? // JSON: 胃ろう、吸引、インスリン等
+
+  // メモ
+  memo String?
+
+  // 重複検知用キー
+  dedupeKey String?
+
+  // リレーション
+  sourceId String?
+  source   Source? @relation(fields: [sourceId], references: [id])
+  events   Event[]
+
+  @@index([dedupeKey])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model Event {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  name   String  // view_lp, start_form, submit_form, click_tel, click_line
+  leadId String?
+  lead   Lead?   @relation(fields: [leadId], references: [id])
+  meta   String? // JSON
+
+  @@index([name])
+  @@index([createdAt])
+}
+
+model Source {
+  id   String @id @default(cuid())
+  type String // hospital, community, caremanager, other
+
+  name       String
+  department String?
+  personName String?
+  phone      String?
+  email      String?
+
+  lastSentAt DateTime?
+  notes      String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  leads Lead[]
+
+  @@index([type])
+}
+
+model NotificationLog {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  type    String // email, slack, line_works
+  leadId  String?
+  success Boolean
+  error   String?
+  meta    String? // JSON
+}
