@@ -55,16 +55,16 @@ export default async function AdminLeadDetailPage({
   const severityDef = SEVERITY_LEVELS.find((s) => s.value === lead.severity);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#fafbff]">
       <AdminNav />
 
       <div className="max-w-5xl mx-auto px-4 py-6">
         <div className="flex items-center gap-3 mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-navy-950 tracking-tight">
             {lead.contactName || "名前未設定"}
           </h1>
           {statusDef && (
-            <span className={`inline-flex px-2.5 py-1 rounded-full text-xs font-medium ${statusDef.color}`}>
+            <span className={`inline-flex px-2.5 py-1 rounded-lg text-xs font-semibold ${statusDef.color}`}>
               {statusDef.label}
             </span>
           )}
@@ -91,17 +91,17 @@ export default async function AdminLeadDetailPage({
               <CardContent>
                 <dl className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <dt className="text-gray-500">相談者区分</dt>
+                    <dt className="text-navy-400">相談者区分</dt>
                     <dd className="font-medium">
                       {resolveLabel(CONSULTANT_TYPES, lead.consultantType)}
                     </dd>
                   </div>
                   <div>
-                    <dt className="text-gray-500">流入元</dt>
+                    <dt className="text-navy-400">流入元</dt>
                     <dd className="font-medium">{lead.sourceType}</dd>
                   </div>
                   <div>
-                    <dt className="text-gray-500">受付日時</dt>
+                    <dt className="text-navy-400">受付日時</dt>
                     <dd className="font-medium">
                       {format(new Date(lead.createdAt), "yyyy/MM/dd HH:mm", {
                         locale: ja,
@@ -109,7 +109,7 @@ export default async function AdminLeadDetailPage({
                     </dd>
                   </div>
                   <div>
-                    <dt className="text-gray-500">更新日時</dt>
+                    <dt className="text-navy-400">更新日時</dt>
                     <dd className="font-medium">
                       {format(new Date(lead.updatedAt), "yyyy/MM/dd HH:mm", {
                         locale: ja,
@@ -127,16 +127,16 @@ export default async function AdminLeadDetailPage({
               <CardContent>
                 <dl className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <dt className="text-gray-500">氏名</dt>
+                    <dt className="text-navy-400">氏名</dt>
                     <dd className="font-medium">{lead.contactName || "-"}</dd>
                   </div>
                   <div>
-                    <dt className="text-gray-500">電話番号</dt>
+                    <dt className="text-navy-400">電話番号</dt>
                     <dd className="font-medium">
                       {lead.contactPhone ? (
                         <a
                           href={`tel:${lead.contactPhone}`}
-                          className="text-blue-600 hover:underline"
+                          className="text-navy-600 hover:underline underline-offset-2"
                         >
                           {lead.contactPhone}
                         </a>
@@ -146,12 +146,12 @@ export default async function AdminLeadDetailPage({
                     </dd>
                   </div>
                   <div>
-                    <dt className="text-gray-500">メール</dt>
+                    <dt className="text-navy-400">メール</dt>
                     <dd className="font-medium">
                       {lead.contactEmail ? (
                         <a
                           href={`mailto:${lead.contactEmail}`}
-                          className="text-blue-600 hover:underline"
+                          className="text-navy-600 hover:underline underline-offset-2"
                         >
                           {lead.contactEmail}
                         </a>
@@ -161,7 +161,7 @@ export default async function AdminLeadDetailPage({
                     </dd>
                   </div>
                   <div>
-                    <dt className="text-gray-500">希望連絡方法</dt>
+                    <dt className="text-navy-400">希望連絡方法</dt>
                     <dd className="font-medium">
                       {resolveLabel(PREFERRED_CONTACTS, lead.preferredContact)}
                     </dd>
@@ -177,13 +177,13 @@ export default async function AdminLeadDetailPage({
               <CardContent>
                 <dl className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <dt className="text-gray-500">要介護度</dt>
+                    <dt className="text-navy-400">要介護度</dt>
                     <dd className="font-medium">
                       {resolveLabel(CARE_LEVELS, lead.careLevel)}
                     </dd>
                   </div>
                   <div>
-                    <dt className="text-gray-500">医療処置</dt>
+                    <dt className="text-navy-400">医療処置</dt>
                     <dd className="font-medium">
                       {medicalFlagsList.length > 0
                         ? medicalFlagsList
@@ -205,17 +205,17 @@ export default async function AdminLeadDetailPage({
               <CardContent>
                 <dl className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <dt className="text-gray-500">希望エリア</dt>
+                    <dt className="text-navy-400">希望エリア</dt>
                     <dd className="font-medium">{lead.desiredArea || "-"}</dd>
                   </div>
                   <div>
-                    <dt className="text-gray-500">入居時期</dt>
+                    <dt className="text-navy-400">入居時期</dt>
                     <dd className="font-medium">
                       {resolveLabel(MOVE_IN_TIMINGS, lead.moveInTiming)}
                     </dd>
                   </div>
                   <div>
-                    <dt className="text-gray-500">予算上限</dt>
+                    <dt className="text-navy-400">予算上限</dt>
                     <dd className="font-medium">
                       {lead.budgetMax ? `${lead.budgetMax}万円/月` : "-"}
                     </dd>
@@ -242,7 +242,7 @@ export default async function AdminLeadDetailPage({
               </CardHeader>
               <CardContent>
                 {lead.events.length === 0 ? (
-                  <p className="text-sm text-gray-500">イベントなし</p>
+                  <p className="text-sm text-navy-400">イベントなし</p>
                 ) : (
                   <div className="space-y-2">
                     {lead.events.map((event) => (
@@ -250,14 +250,14 @@ export default async function AdminLeadDetailPage({
                         key={event.id}
                         className="flex items-center gap-3 text-sm py-2 border-b last:border-0"
                       >
-                        <span className="text-gray-400 whitespace-nowrap">
+                        <span className="text-navy-300 whitespace-nowrap">
                           {format(new Date(event.createdAt), "MM/dd HH:mm", {
                             locale: ja,
                           })}
                         </span>
                         <Badge variant="outline">{event.name}</Badge>
                         {event.meta && (
-                          <span className="text-gray-500 text-xs truncate">
+                          <span className="text-navy-400 text-xs truncate">
                             {event.meta}
                           </span>
                         )}

@@ -46,10 +46,10 @@ function LoginForm() {
   return (
     <Card className="w-full max-w-sm">
       <CardHeader className="text-center">
-        <div className="mx-auto mb-3 inline-flex items-center justify-center w-12 h-12 bg-gray-100 rounded-full">
-          <Lock className="h-6 w-6 text-gray-600" />
+        <div className="mx-auto mb-3 inline-flex items-center justify-center w-12 h-12 rounded-xl gradient-cta shadow-lg shadow-navy-600/20">
+          <Lock className="h-5 w-5 text-white" />
         </div>
-        <CardTitle>管理画面ログイン</CardTitle>
+        <CardTitle className="text-navy-900">管理画面ログイン</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleLogin} className="space-y-4">
@@ -83,12 +83,12 @@ function LoginForm() {
 
 export default function AdminLoginPage() {
   return (
-    <main className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <main className="min-h-screen bg-[#fafbff] flex items-center justify-center p-4">
       <Suspense
         fallback={
           <Card className="w-full max-w-sm">
             <CardContent className="p-8 text-center">
-              <Loader2 className="h-6 w-6 animate-spin mx-auto" />
+              <Loader2 className="h-6 w-6 animate-spin mx-auto text-navy-400" />
             </CardContent>
           </Card>
         }

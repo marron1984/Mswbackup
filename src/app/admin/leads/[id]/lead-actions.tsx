@@ -109,8 +109,8 @@ export function LeadActions({
 
         {message && (
           <p
-            className={`text-sm ${
-              message.includes("失敗") ? "text-red-500" : "text-green-600"
+            className={`text-sm font-medium ${
+              message.includes("失敗") ? "text-coral-500" : "text-teal-600"
             }`}
           >
             {message}
@@ -120,7 +120,7 @@ export function LeadActions({
         <Button
           onClick={handleSave}
           disabled={saving}
-          className="w-full"
+          className="w-full gradient-cta text-white rounded-xl shadow-md shadow-navy-600/20 hover:shadow-lg transition-shadow"
         >
           {saving ? (
             <Loader2 className="h-4 w-4 animate-spin mr-2" />
